@@ -1,38 +1,31 @@
 {
   "name": "phyjs_express_ts",
   "version": "1.0.0",
-  "description": "web project for simulation in physics",
-  "main": "src/index.ts",  
+  "description": "[ts]->[site: site of simulations in physics]",
+  "main": "index.js",
   "scripts": {
-    "start": "ts-node src/app.ts",
-    "build": "tsc",
-    "serve": "node build/app.js"
-  },
-  "dependencies": {
-    "express": "^4.21.1",
-    "express-handlebars": "^8.0.1",
-    "socket.io": "^4.8.0"
-  },
-  "devDependencies": {
-    "@types/express": "^4.17.21",
-    "@types/node": "^22.7.0",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.6.3"
+    "start": "ts-node-dev src/index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/reinanbr/phyjs_express_ts.git"
   },
-  "keywords": [
-    "js",
-    "ts",
-    "physics"
-  ],
-  "author": "ReinanBr",
-  "license": "MIT",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "bugs": {
     "url": "https://github.com/reinanbr/phyjs_express_ts/issues"
   },
-  "homepage": "https://github.com/reinanbr/phyjs_express_ts#readme"
+  "homepage": "https://github.com/reinanbr/phyjs_express_ts#readme",
+  "dependencies": {
+    "@types/nunjucks": "^3.2.6",
+    "express": "^4.21.1",
+    "nunjucks": "^3.2.4",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.6.3"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0"
+  }
 }
-
