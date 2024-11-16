@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulador de Movimento Uniforme - Pista com Distância</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      height: 100vh;
+      margin: 0;
+    }
+    #speed {
+      margin: 10px 0;
+    }
+  </style>
+</head>
+<body>
+  <h2>Simulador de Movimento Uniforme</h2>
+  <label for="speed">Velocidade: <span id="speedValue">1</span> m/s </label>
+  <input type="range" id="speed" min="1" max="20" value="1">
+  <p>Veloxidade em km/h: <span id='speedKm'>0</span>km/h</p>
+  <p>Distância percorrida: <span id="distanceValue">0m</span> metros</p>
+  <div id="sketch-holder"></div>
+
+  <script>
+    let speed = 1;
+    let offset = 0; // Deslocamento da pista
+    let distance = 0; // Distância percorrida em metros (cada linha é 50px)
+    let carImage; // Variável para armazenar a imagem do carro
+
+    function preload() {
+      // Carrega a imagem do carro
+      carImage = loadImage('car.png');
+    }
+
+    function setup() {
+      let canvas = createCanvas(600, 200);
+      canvas.parent('sketch-holder');
+    }
+
+    function draw() {
+      background(220);
+
+      // Desenha a pista com numeração
+      drawTrack();
+
+      // Desenha a imagem do carro rotacionada e redimensionada
+      push();
+      translate(width / 2, height / 2); // Move o ponto de origem para o centro do canvas
+      rotate(radians(-49)); // Rotaciona a imagem 45 graus no sentido anti-horário
+      imageMode(CENTER); // Desenha a imagem a partir do centro
+      image(carImage, 0, 0, 200, 200); // Imagem do carro com 40x40 pixels
+      pop();
+
+      // Atualiza o deslocamento da pista
+      offset -= speed;
+      if (offset <= -50) {
+        offset = 0;
+        distance++; // Cada linha representa 1 metro
+        document.getElementById('distanceValue').innerText = distance;
+      }
+    }
+
+    // Função para desenhar a pista com numeração
+    function drawTrack() {
+      stroke(0);
+      strokeWeight(3);
+     // fill(0);
+      textSize(12);
+      strokeWeight(1);
+      for (let i = 0; i < width; i += 50) {
+        // Desenha linhas verticais para representar a pista
+        line(i + offset, height / 2 - 40, i + offset, height / 2 + 40);
+        // Numera cada linha como metros
+        text(distance + int(i / 50)+'m', i + offset, height / 2 + 60);
+      }
+    }
+
+    // Atualiza a velocidade com o valor do input
+    document.getElementById('speed').addEventListener('input', function() {
+      speed = this.value;
+      document.getElementById('speedValue').innerText = speed;
+      let speedKm = speed * 3.6
+      document.getElementById('speedKm').innerText = speedKm
+    });
+  </script>
+</body>
+</html>

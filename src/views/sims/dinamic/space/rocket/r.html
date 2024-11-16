@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simulador de Foguete</title>
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #222;
+        color: white;
+        font-family: Arial, sans-serif;
+      }
+      canvas {
+        display: block;
+      }
+      #launchBtn {
+        padding: 10px 20px;
+        margin-top: 10px;
+        font-size: 16px;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        cursor: pointer;
+      }
+      #launchBtn:disabled {
+        background-color: #6c757d;
+        cursor: not-allowed;
+      }
+    </style>
+    <!-- Importar a biblioteca p5.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+  </head>
+  <body>
+    <button id="launchBtn" onclick="startLaunch()">Ativar Propulsor</button>
+    <script>
+      let fuel = 100; // Combustível inicial
+      let rocketY; // Posição inicial do foguete
+      let rocketX;
+      let launch = false; // Estado de lançamento
+      let rocketImg; // Imagem do foguete
+      let falling = false; // Indica se o foguete está caindo
+      let rotationAngle = 0; // Ângulo de rotação do foguete
+      let windSpeed = 0; // Velocidade do vento
+      let gravity = 0.1; // Aceleração gravitacional
+      let velocityX = 0; // Velocidade horizontal
+      let velocityY = 0; // Velocidade vertical
+
+      function preload() {
+        // Carregar a imagem do foguete
+        rocketImg = loadImage('falcon9.png');
+      }
+
+      function setup() {
+        createCanvas(400, 600);
+        rocketY = height - 100; // Definir posição do foguete perto do chão
+        rocketX = width / 2 - 25;
+        windSpeed = random(-0.05, 0.05); // Velocidade do vento aleatória
+      }
+
+      function draw() {
+        background(0);
+
+        // Desenhar o solo
+        fill(100, 50, 0);
+        rect(0, height - 50, width, 50);
+
+        // Lançar foguete quando o botão for pressionado
+        if (launch && fuel > 0) {
+          rocketY -= 2; // Foguete subindo
+          fuel -= 0.5; // Consumir combustível
+        }
+
+        // Verificar se o combustível acabou e iniciar a queda
+        if (fuel <= 0 && rocketY < height - 100) {
+          falling = true;
+          launch = false; // Parar o foguete de subir
+        }
+
+        // Quando o foguete estiver caindo
+        if (true) {
+          // A gravidade faz o foguete cair cada vez mais rápido
+          velocityY += gravity;
+
+          // Fazer o foguete se mover lateralmente conforme o ângulo de rotação
+          let angleInRadians = rotationAngle; // Ângulo em radianos
+          
+          // Calcular a nova direção de movimento baseada no ângulo
+          let directionX = cos(angleInRadians); // Componente X do movimento
+          let directionY = sin(angleInRadians); // Componente Y do movimento
+
+          // Atualizar as velocidades horizontal e vertical
+          velocityX += directionX * 0.1; // Movimento lateral baseado no ângulo
+          velocityY += directionY * 0.1; // Movimento vertical baseado no ângulo
+
+          // Atualizar a posição do foguete
+          rocketX += velocityX;
+          rocketY += velocityY;
+
+          // Aplicar rotação conforme a força do vento
+          rotationAngle += windSpeed;
+
+          // Limitar a posição do foguete nas bordas da tela
+          if (rocketX < 0) rocketX = 0;
+          if (rocketX > width - 50) rocketX = width - 50;
+        }
+
+        // Desenhar foguete com rotação
+        push();
+        translate(rocketX + 25, rocketY + 75); // Mover a origem para o centro do foguete
+        rotate(rotationAngle); // Rotacionar o foguete
+        imageMode(CENTER);
+        image(rocketImg, 0, 0, 50, 150); // Desenhar a imagem do foguete
+        pop();
+
+        // Exibir o nível de combustível
+        fill(255);
+        textSize(20);
+        text("Combustível: " + fuel.toFixed(0), 20, 30);
+
+        // Exibir uma mensagem se o foguete atingir o chão
+        if (rocketY >= height - 100) {
+          textSize(30);
+          fill(255, 0, 0);
+  //        text("Foguete caiu!", 100, height / 2);
+      //    disableButton();
+        }
+      }
+
+      // Função para iniciar o lançamento
+      function startLaunch() {
+        launch = true;
+        document.getElementById("launchBtn").disabled = true; // Desativar o botão após o início
+      }
+
+      // Função para desativar o botão quando o foguete cair
+      function disableButton() {
+        document.getElementById("launchBtn").disabled = true;
+      }
+    </script>
+  </body>
+</html>

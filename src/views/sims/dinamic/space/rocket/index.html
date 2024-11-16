@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+  <meta name="theme-color" content="#0b0b0b">
+  <meta property="og:site_name" content="SPj - Simulador de um Foguete no Espaço">
+  <meta property="og:title" content="SPj - Simulador de um Foguete no Espaço">
+  <meta name="description" content="Apenas um Simulador de um Foguete...">
+  <meta name="og:description" content="Apenas um Simulador de um Foguete...">
+  
+
+  <link rel="apple-touch-icon" sizes="192x192" href=https://raw.githubusercontent.com/reinanbr/psj/refs/heads/main/assets/icons/favicon/android-chrome-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://raw.githubusercontent.com/reinanbr/psj/assets/icons/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://raw.githubusercontent.com/reinanbr/psj/assets/icons/favicon/favicon16x16.png">
+  <link rel="manifest" href="https://raw.githubusercontent.com/reinanbr/psj/assets/icons/favicon/site.webmanifest">
+  
+
+  <script src="https://cdn.jsdelivr.net/npm/p5@1.5.0/lib/p5.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+  <link rel='stylesheet' href='/psj/simulations/electromagnetism/fieldElectric/parallelCapacitor/static/css/style.css'>
+
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital@1&family=Young+Serif&display=swap"
+    rel="stylesheet">
+    
+
+  <title>Simulador de Um Foguete no Espaço</title>
+  <style>
+    body
+    {
+      background-color: black;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Image and text -->
+  <nav class="shadow navbar navbar-expand-lg navbar-light " style="background-color: #0a0016;">
+    <a class="text-white" href="/psj">
+      <img src="https://raw.githubusercontent.com/reinanbr/psj/refs/heads/main/assets/icons/spj.png" width="30" height="30" class="d-inline-block rounded align-top" alt="">
+
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+      aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link text-white" href="/psj/errors/making.html">Dinâmica </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="/psj/errors/making.html">Fluídos</a>
+        </li>
+          <li class="nav-item active">
+          <a class="nav-link text-white" href="/psj/errors/making.html">Termodinâmica </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="/psj/errors/making.html">Ondas</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link text-white" href="/psj/errors/making.html">Optíca </a>
+        </li>  <li class="nav-item active">
+          <a class="nav-link text-white" href="/psj/simulations/electromagnetism">Eletromagnetismo </a>
+        </li>  <li class="nav-item active">
+          <a class="nav-link text-white" href="/psj/errors/making.html">Física Moderna </a>
+        </li>
+      </ul>
+      <span class="navbar-text">
+      </span>
+
+    </div>
+  </nav>
+  
+  <br>
+  <br>
+  
+<h2 style='color:gray' color='gray'>Simulador de um Foguete no Espaço</h2>
+  <div id="sketch-holder"></div>
+</div>
+
+ 
+
+    </div>
+    <div class="controls">
+        <button id="rotateCW">Girar Horário</button>
+        <button id="rotateCCW">Girar Anti-horário</button>
+        <button id="propulsor">Propulsor</button>
+    </div>
+    <div style="color:white" id="info"></div>
+    <script>
+let gridSize = 40;
+let offsetX = 0;
+let offsetY = 0;
+let rocket;
+let rotation = 0;
+let speedX = 0;
+let speedY = 0;
+let rotationSpeed = 0;
+let acceleration = 0.7;  // Aceleração aplicada pelo propulsor
+let rotationAcceleration = 0.01;  // Aceleração de rotação
+let rotationDecay = 0.91;  // Decaimento da rotação
+let distanceTraveled = 0;  // Distância percorrida
+let initialX, initialY;
+let smoke = [];  // Array para armazenar as partículas de fumaça
+let sizeImg = 150
+
+
+// Carregar a imagem da nave
+function preload() {
+    rocket = loadImage('falcon9.png');  // Certifique-se de que o arquivo 'falcon9.png' está na mesma pasta
+}
+
+function setup() {
+    let canvas = createCanvas(800, 600);
+    canvas.parent('sketch-holder');
+    initialX = width / 2;
+    initialY = height / 2;
+
+    // Adicionando os eventos dos botões para cliques simples
+    document.getElementById('rotateCW').addEventListener('click', () => {
+        rotationSpeed += rotationAcceleration;  // Aumentar a rotação no sentido horário
+        // Criar fumaça na ponta do foguete no lado oposto ao giro
+        let angle = rotation - PI / 2;
+        for (let i = 0; i < 5; i++) {
+            smoke.push(new SmokeParticle(width / 2 + cos(angle) * (sizeImg/2), height / 2 + sin(angle) * (sizeImg/2), rotationSpeed * 0.5, rotationSpeed * 0.5));
+        }
+    });
+    document.getElementById('rotateCCW').addEventListener('click', () => {
+        rotationSpeed -= rotationAcceleration;  // Aumentar a rotação no sentido anti-horário
+        // Criar fumaça na ponta do foguete no lado oposto ao giro
+        let angle = rotation - PI / 2;
+        for (let i = 0; i < 5; i++) {
+            smoke.push(new SmokeParticle(width / 2 + cos(angle) *  (sizeImg/2), height / 2 + sin(angle) *  (sizeImg/2), -rotationSpeed * 0.5, -rotationSpeed * 0.5));
+        }
+    });
+    document.getElementById('propulsor').addEventListener('click', () => {
+        let thrustX = acceleration * cos(rotation - PI / 2);
+        let thrustY = acceleration * sin(rotation - PI / 2);
+        speedX += thrustX;
+        speedY += thrustY;
+        // Criar novas partículas de fumaça
+        let angle = rotation - PI / 2;
+        for (let i = 0; i < 5; i++) {
+            smoke.push(new SmokeParticle((width)/2-cos(angle)* (sizeImg/2), (height)/2 - sin(angle)* (sizeImg/2), -thrustX, -thrustY));
+        }
+    });
+}
+
+function draw() {
+    background(0);
+
+    // Desenhar o fundo com pontos brancos sempre visíveis
+    stroke(255);
+    strokeWeight(1);
+    noFill();
+    for (let i = offsetX % gridSize - gridSize; i < width; i += gridSize) {
+        for (let j = offsetY % gridSize - gridSize; j < height; j += gridSize) {
+            point(i, j);
+        }
+    }
+
+    // Aplicar rotação com decaimento
+    rotation += rotationSpeed;
+    rotationSpeed *= rotationDecay;
+
+    // Atualizar a posição da nave
+    let newX = offsetX - speedX;
+    let newY = offsetY - speedY;
+    distanceTraveled += dist(offsetX, offsetY, newX, newY);
+    offsetX = newX;
+    offsetY = newY;
+
+    // Desenhar a nave no centro
+    push();
+    translate(width / 2, height / 2);
+    rotate(rotation);
+    imageMode(CENTER);
+    image(rocket, 0, 0, sizeImg, sizeImg);  // Exibe a imagem 'falcon9.png' com 70x70 pixels
+    pop();
+
+    // Atualizar e desenhar partículas de fumaça
+    for (let i = smoke.length - 1; i >= 0; i--) {
+        smoke[i].update();
+        smoke[i].display();
+        if (smoke[i].isDone()) {
+            smoke.splice(i, 1);
+        }
+    }
+
+    // Mostrar informações na div
+    let distX = nf(width / 2 - (offsetX + width / 2), 0, 2);
+    let distY = nf(height / 2 - (offsetY + height / 2), 0, 2);
+    document.getElementById('info').innerHTML = `
+        Velocidade: ${nf(sqrt(speedX * speedX + speedY * speedY), 0, 2)}<br>
+        Velocidade X: ${nf(speedX, 0, 2)}<br>
+        Velocidade Y: ${nf(speedY,0,2)}<br>
+        Velocidade de Giro: ${nf(abs(rotationSpeed), 0, 2)}<br>
+        Distância do Centro X: ${distX}<br>
+        Distância do Centro Y: ${distY}<br>
+        Distância Percorrida: ${nf(distanceTraveled, 0, 2)}
+    `;
+}
+
+function windowResized() {
+    resizeCanvas(windowWidth, windowHeight);
+}
+
+class SmokeParticle {
+    constructor(x, y, speedX, speedY) {
+        this.x = x;
+        this.y = y;
+        this.speedX = speedX * 0.5;
+        this.speedY = speedY * 0.5;
+        this.alpha = 255;
+    }
+
+    update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        this.alpha -= 5;
+    }
+
+    display() {
+        stroke(255, this.alpha);
+        strokeWeight(3);
+        point(this.x, this.y);
+    }
+
+    isDone() {
+        return this.alpha <= 0;
+    }
+}
+
+   </script>
+
+<br>
+	<br>
+		<br>
+			<br>
+				<p>sem ideias msm, prof...</p>
+
+<br />
+  <br />
+  <footer class="text-center text-white" style="background-color:#080a11;">
+    <!-- Grid container -->
+    <div class="container p-4 pb-0">
+        <!-- Section: Social media -->
+
+        <!-- Section: Social media -->
+    </div>
+    <!-- Grid container -->
+    <section class="sectFooter" style="color:gray">
+        <div class="container text-center text-md-start mt-3">
+            <!-- Grid row -->
+            <div class="row mt-3">
+                <!-- Grid column -->
+                <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                    <!-- Content -->
+                    <h6 class="text-uppercase fw-bold mb-4">
+                        <i class="fas fa-gem me-3"></i>©2023
+                    </h6>
+                    <p>
+                    <div class="container p-4 pb-0">
+                        <!-- Section: Social media -->
+                        <section class="mb-4">
+
+                            <!-- Twitter -->
+                            <a class="btn btn-outline-light btn-floating m-1" title="Twitter - BezerraReinan"
+                                href="https://twitter.com/BezerraReinan" role="button"><i
+                                    class="bi bi-twitter"></i></a>
+
+                            <!-- Instagram -->
+                            <a class="btn btn-outline-light btn-floating m-1" title="Instagram - reinanbr_"
+                                href="https://www.instagram.com/reinanbr_/" role="button"><i
+                                    class="bi bi-instagram"></i></a>
+
+                            <!-- Github -->
+                            <a class="btn btn-outline-light btn-floating m-1" title="GitHub - ReinanBr"
+                                href="https://github.com/reinanbr" role="button"><i class="bi bi-github"></i></a>
+                        </section>
+                        <br /><br /><br />
+                        <!-- Section: Social media -->
+                    </div>
+                    <hr style="background-color:gray"/>
+                    </p>
+                </div>
+                <!-- Grid column -->
+
+                <!-- Grid column -->
+                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+                    <!-- Links -->
+                    <h6 class="text-uppercase fw-bold mb-4">
+                        Temas
+                    </h6>
+                    </p>
+                    <p>
+                        <a href="#!" class="text-reset">Mecânica e Dinâmica</a>
+                    </p>
+
+                    <p>
+                        <a href="#!" class="text-reset">Fluídos</a>
+
+                    </p>
+                    <p>
+                        <a href="#!" class="text-reset">Termodinâmica</a>
+
+                    </p>
+                    <p>
+                        <a href="#!" class="text-reset">Ondas</a>
+                    </p>
+                    <p>
+                        <a href="#!" class="text-reset">Eletromagnetísmo</a>
+                    </p>
+                    <p>
+                        <a href="#!" class="text-reset">Física Moderna</a>
+
+                    </p>
+
+                </div>
+                <!-- Grid column -->
+
+                <!-- Grid column -->
+
+                <!-- Grid column -->
+
+                <!-- Grid column -->
+                <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                    <!-- Links -->
+                    <h6 class="text-uppercase fw-bold mb-4">Contato</h6>
+                    <p>
+                        <i class="fas fa-envelope me-3"></i>
+                        perseu912@gmail.com
+                    </p>
+
+                    <p><i class="fas fa-print me-3"></i> + 55 74 9 9932-9688</p>
+                    <p><i class="fas fa-home me-3"></i> Petrolina - PE </p>
+                    <p>
+                        <a href="/privacity" class="text-reset">Politíca de Privacidade</a>
+                    </p>
+
+                </div>
+                <!-- Grid column -->
+            </div>
+            <!-- Grid row -->
+        </div>
+    </section>
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: #030706; color:#566463">
+        <small> © 2024
+            <a class="text-white" style='color:#566463' href="https://github.com/reinanbr">ReinanBr</a></small>
+    </div>
+    <!-- Copyright -->
+</footer>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+
+
+
+    
+  </body>
+</html>

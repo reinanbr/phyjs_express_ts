@@ -31,6 +31,17 @@ server.get('/contact', (req: Request, res: Response) => {
   res.render('contact', { title: 'Contato', message: 'Entre em contato conosco.' });
 });
 
+server.get('/sim/:area/:code_sim', (req, res) => {
+  const { area, code_sim } = req.params;
+
+  res.json({
+    area: area,
+    code_sim: code_sim
+  });
+});
+
+
+
 // Iniciar o servidor
 server.listen(PORT, () => {
   console.log(`Servidor rodando em http://localhost:${PORT}`);
