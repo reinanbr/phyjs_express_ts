@@ -5,9 +5,17 @@
     "rootDir": "./src",
     "outDir": "./dist",
     "strict": true,
+    "noImplicitAny": true,
+    "allowSyntheticDefaultImports": true,
+    "moduleResolution": "node",
+    "sourceMap": true,
     "esModuleInterop": true,
     "skipLibCheck": true
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules"]
+  "baseUrl": ".",
+  "include": ["src/**/*.ts"],
+  "paths": {
+    "*": ["node_modules/*", "src/types/*"]
+},
+
 }
