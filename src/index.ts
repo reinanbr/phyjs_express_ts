@@ -5,13 +5,13 @@ const PORT = 3000;
 const server: Express = express();
 
 // Configuração de middlewares
-server.use('/static',express.static("src/static"));
+server.use('/static',express.static("./src/static"));
 server.use(express.urlencoded({ extended: true }));
 server.use(express.json());
 
 // Configuração do Nunjucks
 server.set("view engine", "njk");
-nunjucks.configure("src/views", {
+nunjucks.configure("./src/views", {
     express: server,
     autoescape: false,
     noCache: true,

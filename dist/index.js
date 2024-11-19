@@ -8,12 +8,12 @@ const nunjucks_1 = __importDefault(require("nunjucks"));
 const PORT = 3000;
 const server = (0, express_1.default)();
 // Configuração de middlewares
-server.use('/static', express_1.default.static("src/static"));
+server.use('/static', express_1.default.static("./src/static"));
 server.use(express_1.default.urlencoded({ extended: true }));
 server.use(express_1.default.json());
 // Configuração do Nunjucks
 server.set("view engine", "njk");
-nunjucks_1.default.configure("src/views", {
+nunjucks_1.default.configure("./src/views", {
     express: server,
     autoescape: false,
     noCache: true,
