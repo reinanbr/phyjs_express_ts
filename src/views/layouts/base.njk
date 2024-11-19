@@ -42,8 +42,14 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital@1&family=Young+Serif&display=swap"
     rel="stylesheet">
-  <title>SPj - Simulações Da Filosofia Natural</title>
+  {% block title %}
+  <title>SPj</title>
+  {% endblock %}
 </head>
+
+
+
+{% block header %}
   <!-- Image and text -->
   <nav class="shadow navbar navbar-expand-lg navbar-light " style="background-color: #0a0016;">
     <a class="text-white" href="/psj">
@@ -83,7 +89,7 @@
 
     </div>
   </nav>
-
+{% endblock %}
   
   <main>
     {% block content %}

@@ -5,7 +5,7 @@ const PORT = 3000;
 const server: Express = express();
 
 // Configuração de middlewares
-server.use('/static',express.static(__dirname + "/static"));
+server.use('/static',express.static("src/static"));
 server.use(express.urlencoded({ extended: true }));
 server.use(express.json());
 
@@ -20,7 +20,7 @@ nunjucks.configure("src/views", {
 
 // Rotas
 server.get('/', (req: Request, res: Response) => {
-  res.render('index', { title: 'Página Inicial', message: 'Bem-vindo ao meu site!' });
+  res.render('index', { title: 'Simulações Da Filosofia Natural', message: 'Bem-vindo ao meu site!' });
 });
 
 server.get('/about', (req: Request, res: Response) => {
