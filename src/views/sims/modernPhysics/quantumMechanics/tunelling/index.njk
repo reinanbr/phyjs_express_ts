@@ -1,4 +1,4 @@
-{% extends "layouts/base.njk" %}
+{% extends "layouts/base_sim.njk" %}
 
 {% block content %}
 
@@ -32,7 +32,7 @@
 	24 December 2014: Added grid
 -->
 
-<body style="background-color:#d0d0d0; font-family:sans-serif; font-size:15px; line-height:18px;">
+<body>
 
 <div style="width:720px; margin-left:auto; margin-right:auto;">
 
@@ -46,32 +46,32 @@
 
 	<div style="text-align:center; -webkit-text-size-adjust: 100%;">
 		<a href="javascript:void(0)" class="custombutton" id="pauseButton" 
-				onclick="startStop();" ontouchstart="">Run</a>
-		&nbsp;Speed:
+				onclick="startStop();" ontouchstart="">Iniciar</a>
+		&nbsp;Velocidade:
 		<input type="range" id="speedSlider" min="1" max="100" step="1" value="20">
 		&nbsp
 		<input type="radio" name="plotType" id="realImag" onclick="paintCanvas();">Real/imag&nbsp;
-		<input type="radio" name="plotType" checked onclick="paintCanvas();">Density/phase&nbsp;&nbsp;
+		<input type="radio" name="plotType" checked onclick="paintCanvas();">Densidade/Fase&nbsp;&nbsp;
 		<input type="checkbox" id="gridCheck" onclick="paintCanvas();">Grid
 	</div>
 	<div style="text-align:center; margin-top:3px; -webkit-text-size-adjust: 100%;">
 		<a href="javascript:void(0)" class="custombutton" id="resetButton"
-				onclick="reset();" ontouchstart="">Reset</a>
-		&nbsp;Wavepacket energy = <span id="wpEnergyReadout">0.030 &plusmn; 0.005</span>
+				onclick="reset();" ontouchstart="">Reiniciar</a>
+		&nbsp;Energia do Pacote = <span id="wpEnergyReadout">0.030 &plusmn; 0.005</span>
 		<input type="range" id="wpEnergySlider" min="0" max="0.100" step="0.001" value="0.030"
 				onchange="wpEnergyAdjust();" oninput="wpEnergyAdjust();">
 	</div>
 	<div style="text-align:center; margin-top:3px; -webkit-text-size-adjust: 100%;">
-		Barrier energy = 
+		Energia da Barreira = 
 		<span id="barrierEnergyReadout" style="display:inline-block; width:3.1em; text-align:right;">0.030</span>
 		<input type="range" id="barrierEnergySlider" min="-0.1" max="0.1" step="0.001" value="0.040"
 				onchange="barrierAdjust();" oninput="barrierAdjust();">
 		&nbsp;&nbsp;
-		<span id="widthOrStep" style="display:inline-block; width:3.5em; text-align:right;">Width =</span>
+		<span id="widthOrStep" style="display:inline-block; width:3.5em; text-align:right;">Largura =</span>
 		<span id="barrierWidthReadout" style="display:inline-block; width:1.1em; text-align:right;">20</span>
 		<input type="range" id="barrierWidthSlider" min="0" max="51" step="1" value="10"
 				style="width:80px;" onchange="barrierAdjust();" oninput="barrierAdjust();">
-		&nbsp;&nbsp;Ramp = 
+		&nbsp;&nbsp;Rampa = 
 		<span id="barrierRampReadout" style="display:inline-block; width:1.1em; text-align:right;">0</span>
 		<input type="range" id="barrierRampSlider" min="0" max="50" step="1" value="0"
 				style="width:80px;" onchange="barrierAdjust();" oninput="barrierAdjust();">
@@ -179,10 +179,10 @@
 	function startStop() {
 		running = !running;
 		if (running) {
-			pauseButton.innerHTML = "Pause";
+			pauseButton.innerHTML = "Pausar";
 			nextFrame();
 		} else {
-			pauseButton.innerHTML = "Resume";
+			pauseButton.innerHTML = "Resumir";
 		}
 	}
 
@@ -208,7 +208,7 @@
 			v[x] = 0.0;
 		}
 		if (bWidth < 51) {
-			widthOrStep.innerHTML = "Width =";
+			widthOrStep.innerHTML = "Larg. =";
 			barrierWidthReadout.innerHTML = bWidth;
 			var barrierLeft = Math.round((xMax-bWidth)/2);
 			for (var x=barrierLeft; x<barrierLeft+bWidth; x++) {
@@ -219,7 +219,7 @@
 				v[barrierLeft+bWidth+dx-1] = bEnergy * (1 - dx / (bRamp+1));
 			}
 		} else {
-			widthOrStep.innerHTML = "Step";
+			widthOrStep.innerHTML = "Degrau";
 			barrierWidthReadout.innerHTML = "";
 			var barrierLeft = Math.round((xMax+bRamp)/2);
 			for (var x=barrierLeft; x<=xMax; x++) {
@@ -277,7 +277,7 @@
 			}
 		}
 		paintCanvas();
-		if (!running) pauseButton.innerHTML = "Run";
+		if (!running) pauseButton.innerHTML = "Iniciar";
 	}
 
 	// Draw the canvas:

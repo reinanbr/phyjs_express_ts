@@ -28,6 +28,9 @@ server.get('/about', (req, res) => {
 server.get('/contact', (req, res) => {
     res.render('contact', { title: 'Contato', message: 'Entre em contato conosco.' });
 });
+server.get("/sims/quanta", (req, res) => {
+    res.render("sims/modernPhysics/quantumMechanics/tunelling/index");
+});
 server.get('/sim/:area/:code_sim', (req, res) => {
     const { area, code_sim } = req.params;
     res.json({
