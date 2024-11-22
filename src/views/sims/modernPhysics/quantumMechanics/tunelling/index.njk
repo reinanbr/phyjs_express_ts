@@ -36,7 +36,7 @@
 
 <div style="width:720px; margin-left:auto; margin-right:auto;">
 
-	<h1 style="font-size:18pt; text-align:center; margin-bottom:10px;">Quantum Barrier Scattering</h1>
+	<h1 style="font-size:18pt; text-align:center; margin-bottom:10px;">Partícula Quântica em uma Barreira de Potencial Editável</h1>
 
 	<div style="position:relative;">
 		<div id="leftPercent" style="position:absolute; bottom:0; z-index:2; color:#b8b8b8; margin:5px; font-family:monospace">100.0%</div>
@@ -78,51 +78,13 @@
 	</div>
 	<div id="debug"></div>
 
-	<p>This simulation shows a quantum mechanical wavepacket hitting a barrier. You can adjust
-	the wavepacket&rsquo;s nominal energy, the barrier energy, the barrier width, and the width
-	of a &ldquo;ramp&rdquo; on either side of the barrier, to see how these affect
-	the amount of the wavepacket that gets through (i.e., the tunneling probability). Drag the
-	width slider all the way to the right to make a step instead of a barrier.</p>
-	
-	<p>The wavefunction is always zero at the edges of the image, so the quantum particle is
-	effectively trapped in an infinitely deep potential well. Thus, when the wavepacket hits
-	the edges, it will reflect off of them.</p>
-	
-	<p>You can plot either the real and imaginary parts of
-	the wavefunction (shown in orange and blue, respectively), or the probability density and phase, 
-	with the phase represented by hues going from
-	red (pure real and positive) to light green (pure imaginary and positive) to cyan (pure real
-	and negative) to purple (pure imaginary and negative) and finally back to red.</p>
+	<p>Esta simulação mostra um pacote de ondas mecânico-quântico atingindo uma barreira. Você pode ajustar a energia nominal do pacote de ondas, a energia da barreira, a largura da barreira e a largura de uma "rampa" em ambos os lados da barreira para ver como esses ajustes afetam a quantidade do pacote de ondas que atravessa (ou seja, a probabilidade de tunelamento). Arraste o controle deslizante de largura totalmente para a direita para transformar a barreira em um degrau.</p>  
+<p>A função de onda é sempre zero nas bordas da imagem, de modo que a partícula quântica está efetivamente presa em um poço de potencial infinitamente profundo. Assim, quando o pacote de ondas atinge as bordas, ele é refletido por elas.</p>  
+<p>Você pode plotar as partes real e imaginária da função de onda (mostradas em laranja e azul, respectivamente) ou a densidade de probabilidade e a fase, com a fase representada por tonalidades que vão do vermelho (real e positivo) ao verde-claro (imaginário e positivo), ao ciano (real e negativo), ao roxo (imaginário e negativo) e, finalmente, de volta ao vermelho.</p>  
+<p>Explore a simulação por um tempo e tente prever o que acontecerá quando você alterar as várias configurações. Como o pacote de ondas se comporta quando não há barreira? Como você pode determinar, quando a simulação está pausada, se o pacote de ondas está se movendo para a esquerda ou para a direita? Como o comprimento de onda dentro do pacote varia quando você altera sua energia? Sob quais condições a maior parte do pacote de ondas atravessará a barreira? De que maneiras o pacote de ondas se comporta como uma partícula clássica?</p>  
 
-	<p>Play with the simulation for a while, then try to predict what will happen when you change
-	the various settings. How does the wavepacket behave when there is no barrier at all? How can
-	you tell, when the simulation is paused, whether the wavepacket is moving to the left or right?
-	How does the wavelength within the packet vary as you change its energy? Under what conditions
-	will most of the wavepacket make it through the barrier? In what ways does the wavepacket behave
-	like a classical particle?</p>
-
-	<p>Technical details: The simulation works by solving a discretized version of the time-dependent 
-	Schr&ouml;dinger equation, as you can see by looking at the source code.
-	Distances are measured in units of nominal screen pixels, and the grid
-	spacing is 20 pixels. Other units
-	are determined by setting h-bar and the particle mass to 1. This is a nonrelativistic particle,
-	so its kinetic energy is <i>p</i><sup>2</sup>/2<i>m</i>. From this formula and the 
-	<a href="http://en.wikipedia.org/wiki/Matter_wave">de Broglie 
-	relation</a> you can figure out how the energy of a wavefunction is related to its wavelength.
-	A wavepacket is actually a mixture that includes a range of energies, so the uncertainty
-	(standard deviation) in the energy is displayed next to the energy slider.
-	Notice also that the phase velocity (of the individual waves within the wavepacket) differs
-	from the group velocity (of the packet as a whole).
-	</p>
-
-	<p>By <a href="http://physics.weber.edu/schroeder/">Daniel V. Schroeder</a>, 
-	<a href="http://physics.weber.edu/">Physics Dept.</a>, 
-	<a href="http://weber.edu">Weber State University</a></p>
-
-	<p>See PhET&rsquo;s <a href="http://phet.colorado.edu/en/simulation/quantum-tunneling">Quantum
-	Tunneling and Wave Packets</a> for a similar simulation with some more useful features.</p>
-
-	<p><a href="http://physics.weber.edu/schroeder/software/">More physics software</a></p>
+<hr>
+	<p>Créditos <a href="http://physics.weber.edu/schroeder/">Daniel V. Schroeder</a></p>
 </div>
 
 <script>
