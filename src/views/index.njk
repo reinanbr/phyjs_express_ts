@@ -1,68 +1,171 @@
 {% extends "layouts/base.njk" %}
 
- {% block title %}
-  <title>SPj - {{title}}</title>
-  {% endblock %}
+{% block title %}
+Página Inicial
+{% endblock %}
 
 {% block content %}
- <br><br>
 
-  <div class='painel rounded'>
-    <h5>Filosofia Natural das Coisas</h5>
-    <div>
-      <hr />
-      <small><i>"É numa substância simples, e não num composto ou numa máquina, que a percepção deve ser
-          procurada."</i></small>
-      <br><small><i><b>- Gottfried Leibniz </b></i></small>
-      <hr>
-      <small><i>A verdade sempre pode ser encontrada na simplicidade, e não na multiplicidade e confusão das
-          coisas</i><br>
-        <i> <b>- Isaac Newton</b></i></small>
+<!-- Dark Mode Toggle -->
+<div class="d-flex justify-content-end p-3">
+    <label class="form-check form-switch">
+        <input type="checkbox" class="form-check-input" id="darkModeToggle">
+        <span class="form-check-label">Modo Escuro</span>
+    </label>
+</div>
+
+<!-- Content -->
+<div class="container my-5">
+    <div class="row">
+        <!-- Main Content -->
+        <div class="col-lg-8">
+            <div class="col-12 text-center mb-4">
+                <h1>Lista de Simulações</h1>
+                <p>Explore as melhores simulações de física disponíveis.</p>
+            </div>
+
+            <div class="row">
+                {% for sim in sims %}
+		<div class="col-md-6 mb-4">
+		    <div class="card rounded-shadow-card">
+			<img src="{{ sim.thumb }}" class="card-img-top" alt="{{ sim.title }}" style="border-top-left-radius: 15px; border-top-right-radius: 15px;">
+			<div class="card-body">
+			    <h5 class="card-title">{{ sim.title }}</h5>
+			    <p class="card-text">{{ sim.description }}</p>
+			</div>
+			<div class="card-footer text-center">
+			     <a href="/sims/daniel_quanta" class="btn btn-primary shadow-button">Ver Detalhes</a>
+			</div>
+		    </div>
+		</div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-lg-4">
+            <h2 class="mb-4">Artigos Relacionados</h2>
+            <div class="row">
+                {% for article in articles %}
+                <div class="col-md-12 mb-4">
+                    <div class="card">
+                        <div class="d-flex align-items-center">
+                            <img src="{{ article.thumb }}" alt="{{ article.title }}" class="me-3" style="width: 100px; height: auto;">
+                            <div>
+                                <h5 class="mb-1">{{ article.title }}</h5>
+                                <p class="mb-0">{{ article.subtitle }}</p>
+                                <a href="/article/{{ article.key }}" class="btn btn-primary mt-2">Leia Mais</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
     </div>
-  </div>
-  
-      <div class=' rounded exp2'>
-      <h5></h5>
-      <div>
-        <small>
-          <p>É um extremo prazer, sem ganho nenhum, poder te ajudar, de alguma forma, em aprender e absorver os determinados
-            conteúdos aqui presentes, meu caro aluno!
-            <br>
-            Espero que sua jornada por aqui seja bastante frutífera, tanto para você, mas como também para as pessoas perto de
-            ti, porque sei que
-            alcançando você com ensino de qualidade, eu também estarei, de alguma forma, alcançando as pessoas próximas
-            a ti também.
-            <br><i><b>- Reinan B., Dev & Professor</b></i>
-          </p>
-        </small>
-      </div>
-    </div>
+</div>
 
-    <hr style="background-color:gray">
-    <div class=' rounded exp3'>
-      <h5></h5>
-      <div>
-        <small>
-          <p><i>"Não sei o que posso parecer ao mundo, mas para mim mesmo pareço ter sido apenas como um menino
-              brincando à
-              beira-mar, e me divertindo de vez em quando procurando uma pedra mais lisa ou uma concha mais bonita do
-              que
-              o normal, enquanto o grande oceano da verdade estava desconhecido diante de mim.
-              " </i><br><i><b>- Isaac Newton</b></i></p>
-        </small>
-      </div>
-    </div>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const isDarkMode = document.cookie.split('; ').find(row => row.startsWith('darkMode='))?.split('=')[1] === 'true';
 
+        if (isDarkMode) {
+            document.body.classList.add('dark-mode');
+            darkModeToggle.checked = true;
+        }
 
-  <br><br><br>
+        darkModeToggle.addEventListener('change', () => {
+            const isChecked = darkModeToggle.checked;
+            document.body.classList.toggle('dark-mode', isChecked);
+            document.cookie = `darkMode=${isChecked}; path=/; max-age=31536000`;
+        });
+    });
+</script>
 
+<style>
+    /* Card com bordas arredondadas e sombra */
+    .rounded-shadow-card {
+        border-radius: 15px; /* Define bordas arredondadas */
+        overflow: hidden; /* Garante que a imagem respeite o formato do card */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Adiciona sombra ao card */
+        transition: transform 0.3s, box-shadow 0.3s; /* Animação suave para hover */
+        border: none; /* Remove a borda padrão */
+    }
 
+    /* Estilo de hover para destacar o card */
+    .rounded-shadow-card:hover {
+        transform: translateY(-5px); /* Eleva o card ao passar o mouse */
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Intensifica a sombra no hover */
+    }
 
+    /* Ajustes para o modo escuro */
+    .dark-mode .rounded-shadow-card {
+        background-color: #2f3136; /* Fundo do card no modo escuro */
+        color: #dcddde; /* Texto no modo escuro */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Sombra mais intensa no modo escuro */
+    }
 
+    .dark-mode .rounded-shadow-card:hover {
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6); /* Intensifica a sombra no hover no modo escuro */
+    }
+      /* Dark Mode Colors - Discord Theme */
+    .dark-mode {
+        background-color: #36393f;
+        color: #dcddde;
+    }
+    .dark-mode .card {
+        background-color: #2f3136;
+        color: #dcddde;
+    }
+    .dark-mode .btn-primary {
+        background-color: #5865f2;
+        border-color: #5865f2;
+    }
+    .dark-mode .navbar {
+        background-color: #202225 !important;
+        color: #dcddde !important;
+    }
+    .dark-mode .navbar a {
+        color: #dcddde !important;
+    }
+    .dark-mode .footer {
+        background-color: #202225;
+        color: #dcddde;
+    }
+    
+       /* Botão com sombra azul */
+    .shadow-button {
+        box-shadow: 0 4px 8px rgba(88, 101, 242, 0.4); /* Sombra azul inicial */
+        transition: transform 0.3s, box-shadow 0.3s; /* Animação para hover */
+    }
 
-  
-    <hr style="background-color:gray">
+    .shadow-button:hover {
+        transform: translateY(-3px); /* Eleva o botão ao passar o mouse */
+        box-shadow: 0 6px 12px rgba(88, 101, 242, 0.6); /* Intensifica a sombra azul no hover */
+    }
 
+    /* Modo escuro - Botão */
+    .dark-mode .shadow-button {
+        box-shadow: 0 4px 8px rgba(88, 101, 242, 0.6); /* Sombra mais intensa no modo escuro */
+    }
 
-<p>{{ message }}</p>
+    .dark-mode .shadow-button:hover {
+        box-shadow: 0 6px 12px rgba(88, 101, 242, 0.8); /* Sombra mais destacada no hover no modo escuro */
+    }
+    
+    body {
+    background-color: #e9e9e9; /* Tom de branco suave */
+}
+.navbar{
+background-color:white;
+}
+
+/* Ajustes para o modo escuro */
+.dark-mode {
+    background-color: #36393f; /* Fundo do modo escuro */
+    color: #dcddde;
+}
+</style>
+
 {% endblock %}
