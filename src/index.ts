@@ -59,10 +59,10 @@ const readFileAsync = (filePath: string): Promise<string> => {
 
 // Rotas
 server.get('/',async (req: Request, res: Response) => {
-	const article_db:string = path.join(__dirname,"db/article_db/doc_db.json");
+	const article_db:string = path.join("./src/db/article_db/doc_db.json");
 	const dataArticles = await loadSimulations(article_db);
 
-	const simsDb: string = path.join(__dirname, "/db/sims_db/simsData.json");
+	const simsDb: string = path.join("./src//db/sims_db/simsData.json");
 	const dataSimulations = await loadSimulations(simsDb); 
  	
 	res.render('index', {articles:dataArticles,sims:dataSimulations, title: 'Simulações Da Filosofia Natural', message: 'Bem-vindo ao meu site!' });
