@@ -1,11 +1,10 @@
 [
 {
-	"title":"A Equação Que Consagra o Buraco de Minhoca",
-	"thumb":"img",
-	"key":"hole_hom",
+	"title":"A Equação Que Consagra O Buraco De Minhoca",
+	"thumb":"static/assets/thumbs_article/hole.jpg",
 	"date":"12/01/25",
 	"hour":"06:52",
-	"content":"",
+	"key":"hole_home",
 	"subtitle":"então"
 }
 ]

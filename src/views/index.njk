@@ -48,15 +48,16 @@ Página Inicial
             <div class="row">
                 {% for article in articles %}
                 <div class="col-md-12 mb-4">
-                    <div class="card">
+                    <div class="card rounded-shadow-card">
                         <div class="d-flex align-items-center">
                             <img src="{{ article.thumb }}" alt="{{ article.title }}" class="me-3" style="width: 100px; height: auto;">
                             <div>
                                 <h5 class="mb-1">{{ article.title }}</h5>
-                                <p class="mb-0">{{ article.subtitle }}</p>
-                                <a href="/article/{{ article.key }}" class="btn btn-primary mt-2">Leia Mais</a>
                             </div>
                         </div>
+                         <p class="mb-0">{{ article.subtitle }}</p>
+                               <a href="/article/{{ article.key }}" class="btn btn-primary btn-custom mt-2 shadow-button">Leia Mais</a>
+                            
                     </div>
                 </div>
                 {% endfor %}
@@ -122,6 +123,16 @@ Página Inicial
         background-color: #5865f2;
         border-color: #5865f2;
     }
+    .btn-custom {
+    width: 120px;
+}
+
+@media (max-width: 768px) {
+    .btn-custom {
+        width: 100px;
+    }
+}
+
     .dark-mode .navbar {
         background-color: #202225 !important;
         color: #dcddde !important;
@@ -159,6 +170,13 @@ Página Inicial
 }
 .navbar{
 background-color:white;
+}
+.nav-link {
+  color: black !important;
+}
+
+.navbar-brand {
+  color: black !important;
 }
 
 /* Ajustes para o modo escuro */

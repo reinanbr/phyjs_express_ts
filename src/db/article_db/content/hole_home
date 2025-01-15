@@ -1,0 +1,34 @@
+
+
+    <div class="container">
+      <article>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a metus vel est bibendum 
+          vehicula. Suspendisse potenti. Praesent quis quam et eros tempor efficitur.
+        </p>
+        <p>
+          Integer fringilla risus non enim gravida, a sodales enim luctus. Aliquam erat volutpat. 
+          Cras vel sapien id nulla luctus scelerisque. Curabitur vel vehicula augue.
+        </p>
+        <blockquote>
+          "A citação famosa relacionada ao tópico do artigo vai aqui."
+        </blockquote>
+        <p>
+        $\int$
+          Fusce vitae augue at nisl pharetra elementum. Vestibulum non nisi non nisi ultricies 
+          consectetur. Sed a magna id erat feugiat dignissim id at enim.
+        </p>
+        <script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']]
+  }
+};
+</script>
+<script id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script
+      </article>
+    </div>
+
+  
